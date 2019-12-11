@@ -51,5 +51,16 @@ namespace PackingListApp.Controllers
             _testService.Put(id, item);
             return Ok(new CommandHandledResult(true, id.ToString(), id.ToString(), id.ToString()));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var test = _testService.Delete(id);
+
+            if (test == null)
+                return NotFound();
+
+            return Ok(test);
+        }
     }
 }
