@@ -111,7 +111,7 @@ class NewPersonItemView extends React.Component<NewPersonItemViewProps & FormCom
                 onOk={this.onCreateNewItem}
                 closable={false}
                 width='800px'
-                title={"New TestItem"}>
+                title={"New PersonItem"}>
                 {this.PersonItemsStore.state.result && !this.PersonItemsStore.state.result.isSuccess &&
                     <Alert type='error'
                         message="Ha ocurrido un error"
