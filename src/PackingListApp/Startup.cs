@@ -52,6 +52,8 @@ namespace PackingListApp
                 }
             });
             services.AddTransient<ITestServices, TestServices>();
+
+            services.AddTransient<IPersonServices, PersonServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
