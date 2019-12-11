@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PackingListApp.DTO;
+using PackingListApp.Models;
 
 namespace PackingListApp.Interfaces
 {
     public interface IPersonServices
     {
-        List<PersonDTO> GetAll();
+        List<PersonModel> GetAll();
 
-        int Add(PersonDTO person);
+        int Add(PersonModel person);
 
-        PersonDTO Get(int id);
+        PersonModel Get(int id);
 
-        int Put(int id, PersonDTO person);
+        int Put(int id, PersonModel person);
 
-        PersonDTO Delete(int id);
+        PersonModel Delete(int id);
     }
 }

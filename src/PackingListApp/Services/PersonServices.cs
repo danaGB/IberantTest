@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PackingListApp.DTO;
 using PackingListApp.Interfaces;
 using PackingListApp.EntityFramework;
 using PackingListApp.Models;
-using PackingListApp.Utils;
 
 namespace PackingListApp.Services
 {
@@ -18,22 +16,15 @@ namespace PackingListApp.Services
             _context = context;
         }
 
-        public int Add(PersonDTO person)
+        public int Add(PersonModel person)
         {
-            var newPerson = new PersonModel
-            {
-                Name = person.Name,
-                LastName = person.LastName,
-                Occupation = person.Occupation
-            };
-
-            _context.PersonModels.Add(newPerson);
+            _context.PersonModels.Add(person);
             _context.SaveChanges();
 
-            return newPerson.Id;
+            return person.Id;
         }
 
-        public PersonDTO Delete(int id)
+        public PersonModel Delete(int id)
         {
             var personModel = _context.PersonModels.FirstOrDefault(p => p.Id == id);
 
@@ -44,26 +35,25 @@ namespace PackingListApp.Services
 
             _context.SaveChanges();
 
-            return personModel.ToPersonDTO();
+            return personModel;
         }
 
-        public PersonDTO Get(int id)
+        public PersonModel Get(int id)
         {
             var personModel = _context.PersonModels.FirstOrDefault(p => p.Id == id);
 
             if (personModel == null)
                 return null; // Person not Found
 
-            return personModel.ToPersonDTO();
+            return personModel;
         }
 
-        public List<PersonDTO> GetAll()
+        public List<PersonModel> GetAll()
         {
-            var personModelList = _context.PersonModels.ToList();
-            return personModelList.ToPersonDTOList();
+            return _context.PersonModels.ToList();
         }
 
-        public int Put(int id, PersonDTO person)
+        public int Put(int id, PersonModel person)
         {
             var personModel = _context.PersonModels.FirstOrDefault(p => p.Id == id);
 

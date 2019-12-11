@@ -8,6 +8,7 @@ using PackingListApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using PackingList.Core.Queries;
 using Microsoft.AspNet.OData.Query;
+using PackingListApp.Utils;
 
 namespace PackingListApp.Controllers
 {
@@ -25,7 +26,7 @@ namespace PackingListApp.Controllers
         [HttpGet]
         public IActionResult Get(ODataQueryOptions<PersonModel> options)
         {
-            var list = _personService.GetAll();
+            var list = _personService.GetAll().ToPersonDTOList();
             return Ok(new QueryResult<PersonDTO>(list, list.Count));
         }
 
@@ -38,21 +39,21 @@ namespace PackingListApp.Controllers
             if (person == null)
                 return NotFound();
 
-            return Ok(person);
+            return Ok(person.ToPersonDTO());
         }
 
         // POST: api/Person
         [HttpPost]
         public IActionResult Post([FromBody] PersonDTO person)
         {
-            var id = _personService.Add(person);
+            var id = _personService.Add(person.ToPersonModel());
             return Ok(new CommandHandledResult(true, id.ToString(), id.ToString(), id.ToString()));
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] PersonDTO person)
         {
-            var idPerson = _personService.Put(id, person);
+            var idPerson = _personService.Put(id, person.ToPersonModel());
 
             if (idPerson == -1)
                 return NotFound();
@@ -68,7 +69,7 @@ namespace PackingListApp.Controllers
             if (person == null)
                 return NotFound();
 
-            return Ok(person);
+            return Ok(person.ToPersonDTO());
         }
     }
 }

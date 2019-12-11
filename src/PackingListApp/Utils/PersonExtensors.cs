@@ -31,5 +31,16 @@ namespace PackingListApp.Utils
                 Occupation = personModel.Occupation
             };
         }
+
+        public static PersonModel ToPersonModel(this PersonDTO personDTO)
+        {
+            return new PersonModel
+            {
+                Id = personDTO.Id,
+                Name = personDTO.Name,
+                LastName = personDTO.LastName,
+                Occupation = personDTO.Occupation
+            };
+        }
     }
 }
