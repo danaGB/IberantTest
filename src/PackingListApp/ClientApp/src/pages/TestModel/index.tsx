@@ -99,7 +99,11 @@ TestItemListState
         item: TestItem,
         state: ItemState
     ): Promise<CommandResult<any>> {
-        return await this.TestItemsStore.deleteAsync(`${item.id}`);
+        var result = await this.TestItemsStore.deleteAsync(`${item.id}`);
+
+        await this.load(this.state.query);
+
+        return result;
     }
 
 
@@ -163,6 +167,7 @@ TestItemListState
                             onSaveRow={this.onSaveItem}
                             hidepagination={true}
                             canEdit={true}
+                            onDeleteRow={this.onDeleteRow}
                         />
                         {this.state.newShow && <NewTestItemView onClose={this.onNewItemClosed} />}
                     </div>
